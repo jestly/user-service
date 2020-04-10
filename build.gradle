@@ -1,0 +1,42 @@
+allprojects {
+}
+
+
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+
+    group = 'com.jestly'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/jestly/artifact-repository")
+                credentials {
+                    username = project.findProperty("gpr.user") as String ?: System.getenv("GITUSERNAME")
+                    password = project.findProperty("gpr.key") as String ?: System.getenv("TOKEN")
+                }
+            }
+        }
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url = uri("https://maven.pkg.github.com/jestly/artifact-repository")
+            credentials {
+                username = "sagarverma1919"
+                password = "c2036a124036b4897a3bc62f524b2da45a4ff39d"
+            }
+        }
+
+    }
+}
